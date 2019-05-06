@@ -18,10 +18,20 @@ class BaseModel(pw.Model):
         else:
             return 0
 
+    # def validate(self):
+    #     print(
+    #         f"Warning validation method not implemented for {str(type(self))}")
+    #     return True
+
     def validate(self):
-        print(
-            f"Warning validation method not implemented for {str(type(self))}")
-        return True
+        duplicate_username = User.get_or_none(User.username == self.username)
+        if duplicate_username:
+            self.errors.append('Username already taken. Pick another username!')
+
+        duplicate_email = User.get_or_none(User.email == self.email)
+        if duplicate_email:
+            self.errors.append('Email already registered. Use a different email!')
+
 
     class Meta:
         database = db
