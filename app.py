@@ -27,16 +27,3 @@ def _db_close(exc):
         print(db.close())
     return exc
 
-# @app.route("/sign_up", methods = ['GET'])
-# def sign_up():
-#     return render_template('signup.html')
-
-# @app.route("/store_form", methods = ['POST'])#endpoint
-# def store_form():
-#     s = Store(name = request.form.get('name'))
-
-#     if s.save():
-#         flash('Successfully saved in database')
-#         return redirect(url_for('store'))
-#     else:
-#         return render_template('store.html', name=request.args['name'])
