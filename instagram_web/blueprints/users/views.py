@@ -2,6 +2,7 @@ import os
 from flask import Blueprint, render_template, Flask, request, redirect, flash, url_for
 from models.user import User
 from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 users_blueprint = Blueprint('users',
                             __name__,
@@ -12,7 +13,7 @@ def new():
     return render_template('users/new.html')
 
 
-@users_blueprint.route('/', methods=['POST'])
+@users_blueprint.route('/new', methods=['POST'])
 def create():
     # breakpoint()
 
@@ -29,6 +30,34 @@ def create():
     else:
         flash('Unable to create new user!')
         return render_template('users/new.html', errors = u.errors)
+
+
+@users_blueprint.route('/login', methods=['GET'])
+def login():
+    return render_template('users/login.html')
+
+
+@users_blueprint.route('/login', methods=['POST'])
+def authenticate():
+    # breakpoint()
+
+    submitted_username = request.form.get('username')
+    user = User.get_or_none(User.username == submitted_username)
+    
+    password_to_check = request.form.get('password')
+
+    if user:
+        hashed_password = user.hashed_password
+        result = check_password_hash(hashed_password, password_to_check)
+        if result:
+            flash('Successfully Logged In')
+            return redirect(url_for('users.index'))
+        else:
+            flash('Wrong Password')
+            return render_template('users/login.html')
+    else:
+        flash('Wrong Username')
+        return render_template('users/login.html')
 
 
 @users_blueprint.route('/<username>', methods=["GET"])
