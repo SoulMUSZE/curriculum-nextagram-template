@@ -26,6 +26,7 @@ class BaseModel(pw.Model):
 
     def validate(self):
         from models.user import User
+        
         duplicate_username = User.get_or_none(User.username == self.username)
         if duplicate_username:
             self.errors.append('Username already taken. Pick another username!')
@@ -34,7 +35,7 @@ class BaseModel(pw.Model):
         if duplicate_email:
             self.errors.append('Email already registered. Use a different email!')
 
-    # user.User.create(email="email@example.com", password="123456", username="ironrock")
+    # user.User.create(email="email2@example.com", password="123456", username="ironrock2")
     
     class Meta:
         database = db
