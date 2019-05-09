@@ -1,6 +1,6 @@
   /* The message box is shown when the user clicks on the password field */
   #message {
-    display:inline-block;
+    display:none;
     /* background: #f1f1f1;
     color: #000; */
     position: relative;
@@ -21,7 +21,9 @@
   .valid::before {
     position: relative;
     left: -35px;
-    content: "✔";
+    /* content: "✔"; */
+    /* hex character */
+    content: "\2714"; 
   }
   
   /* Add a red text color and an "x" when the requirements are wrong */
@@ -32,5 +34,10 @@
   .invalid::before {
     position: relative;
     left: -35px;
-    content: "✖";
+    /* content: "✖"; */
+    content: "\274c";
   }
+
+  /* #signupModal{
+    display:none;
+  } */

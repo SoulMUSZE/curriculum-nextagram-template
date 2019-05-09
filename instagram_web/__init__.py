@@ -10,6 +10,7 @@ assets.register(bundles)
 
 csrf = CSRFProtect(app)
 
+
 app.register_blueprint(users_blueprint, url_prefix="/users")
 
 @app.errorhandler(500)

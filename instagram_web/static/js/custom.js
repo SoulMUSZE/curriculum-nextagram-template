@@ -8,24 +8,32 @@ function myFunction() {
   }
 }
 
+
+const flashMsgParent = document.querySelector('.flash-messages');
+flashMsgParent.onclick = function (e) {           
+  let msg = e.target;
+  flashMsgParent.removeChild(msg)
+  // msg.parentNode.removeChild(msg)
+}
+
+
 let myInput = document.getElementById("psw");
-console.log(`myInput value is ${myInput}`)
-
 let letter = document.getElementById("letter");
-console.log(`letter value is ${letter}`)
-
 let capital = document.getElementById("capital");
 let number = document.getElementById("number");
 let length = document.getElementById("length");
 
-// When the user clicks on the password field, show the message box
-myInput.onfocus = function() {
-  document.getElementById("message").style.display = "block";
-}
-
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
-  document.getElementById("message").style.display = "none";
+show = false
+// When the user clicks on the password field, toggle the showing of the message box
+myInput.onclick = function() {
+  if (!show){
+    document.getElementById("message").style.display = "block";
+    show = !show
+  }
+  else {
+    document.getElementById("message").style.display = "none";
+    show = !show
+  } 
 }
 
 // When the user starts to type something inside the password field
@@ -69,3 +77,14 @@ myInput.onkeyup = function() {
     length.classList.add("invalid");
   }
 }
+
+// let signupAlert = document.getElementById("signup-alert");
+// if (signupAlert){
+//   document.getElementsByTagName("body").className = 'modal-open'
+//   // document.getElementById("signupModal").style.display = "block";
+//   document.getElementById("signupModal").style.display = "block";
+//   document.getElementById("signupModal").className = 'modal fade show'
+//   document.getElementById("signupModal").setAttribute("aria-hidden", "false");
+//   document.getElementsByTagName("script");insertAdjacentHTML("afterend", "<div class=modal-backdrop fade show></div>");
+// }
+
