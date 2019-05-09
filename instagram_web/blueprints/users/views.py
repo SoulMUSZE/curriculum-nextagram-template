@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, session, escape, render_template, Flask, request, redirect, flash, url_for
 from models.user import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import login_manager
+from app import login_manager, app
 from flask_login import login_user, login_required, logout_user
 
 @login_manager.user_loader
@@ -10,11 +10,14 @@ def load_user(user_id):
     return User.get_by_id(user_id)
 
 
-
-
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
+
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     # note that we set the 404 status explicitly
+#     return render_template('404.html'), 404
 
 
 @users_blueprint.route('/new', methods=['GET'])
@@ -92,7 +95,8 @@ def authenticate():
 
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
-    pass
+    user = User.get_or_none(User.username == username)
+    return render_template('users/profile.html', user = user)
 
 
 @users_blueprint.route('/', methods=["GET"])

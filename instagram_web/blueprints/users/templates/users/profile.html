@@ -1,0 +1,18 @@
+{% extends "_layout.html" %}
+{% block title %}
+{{user.username}}'s Page
+{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+        <h1 class="display-4">{{user.username}}'s Profile Page</h1>
+        <!-- <img src="../../images/blank-headshot.png" alt="Smiley face" width="200" height="200" border-radius="20"> -->
+        <img src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png" alt="Smiley face" width="200" height="200" border-radius="20">
+        <p class="lead">User's Description and Photo Goes Here</p>
+        <p class="lead">{{current_user.username}} is currently logged in though.</p>
+    </div>
+</div>
+
+{% endblock %}
