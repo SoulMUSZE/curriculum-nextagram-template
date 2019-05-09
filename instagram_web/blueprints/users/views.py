@@ -3,7 +3,7 @@ from flask import Blueprint, session, escape, render_template, Flask, request, r
 from models.user import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import login_manager, app
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -66,6 +66,7 @@ def authenticate():
     if user and check_password_hash(user.hashed_password, password_to_check):
         login_user(user) #logs in user and create cookie
         flash('Successfully Logged In')
+        # return redirect(url_for('users.edit', id = user.id))
         return redirect(url_for('users.index'))
 
     flash('Please Check Your Login Details and Try Again')
@@ -111,11 +112,17 @@ def index():
 
 
 @users_blueprint.route('/<id>/edit', methods=['GET'])
+@login_required
 def edit(id):
-    pass
+    user = User.get_by_id(id)
+    if user.id == current_user.id:
+        return render_template('users/update.html', user=user)
+    else:
+        return render_template('users/404.html')
 
 
 @users_blueprint.route('/<id>', methods=['POST'])
+@login_required
 def update(id):
     pass
 
