@@ -7,4 +7,5 @@ class User(BaseModel, UserMixin):
     username = pw.CharField(unique=True, null=False)
     email = pw.CharField(unique=True, null=False)
     hashed_password = pw.CharField(unique=False, null=False)
+    description = pw.CharField(unique=False, null=True)
 
