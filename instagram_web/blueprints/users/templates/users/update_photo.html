@@ -1,0 +1,39 @@
+{% extends "_layout.html" %}
+{% block title %} Update Profile Photo {% endblock %}
+
+{% block content %}
+
+<h1>Update Profile Photo</h1>
+
+<div class="container">
+    <div class="text-center">
+        <!-- <img src="../../images/blank-headshot.png" alt="Smiley face" width="200" height="200" border-radius="20"> -->
+        <img id='preview-img' src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png" alt="Smiley face"
+    width="200" style="border-radius:25%">
+    </div>
+
+    <br>
+
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <!-- <span type='submit' class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
+                <button type='submit' class="btn btn-primary" id="inputGroupFileAddon01">Upload</button>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" onchange="preview_image(event)">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- <form action="/" method="POST" enctype="multipart/form-data">
+    <label for="user_file">Upload Your File</label>
+    <br></br>
+    <input type="file" name="user_file">
+    <br></br>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form> -->
+
+{% endblock %}

@@ -124,10 +124,57 @@ def edit(id):
 @users_blueprint.route('/<id>', methods=['POST'])
 @login_required
 def update(id):
-    pass
+    email = request.form.get('email')
+    newPassword = request.form.get('newPassword')
+    description = request.form.get('description')
+    oldPassword = request.form.get('oldPassword')
+
+    user=User.get_by_id(id)
+
+    if check_password_hash(user.hashed_password, oldPassword):
+
+        if not email:
+            email = user.email
+
+        if newPassword:
+            newPasswordHash = generate_password_hash(newPassword)
+        else:
+            newPasswordHash = user.hashed_password
+
+        if description == 'None':
+            description = user.description
+
+        #update the values
+        u = User.update(
+             email = email, 
+             hashed_password = newPasswordHash,
+             description = description
+         ).where(User.id == user.id)
+
+        if u.execute():
+            flash('New details successfully updated in database')
+            return redirect(url_for('users.show', username = user.username))
+        else:
+            flash('New details could not be updated.')
+            return redirect(url_for('users.edit', id = user.id))#do something else
+    else:
+        flash('Password could not be validated')
+        return redirect(url_for('users.show', username = user.username))#redirect or flash message
+
 
 @users_blueprint.route('/logout', methods=["GET"])
 @login_required
 def logout():
     logout_user()
     return render_template('home.html')
+
+@users_blueprint.route('/<id>/edit-photo', methods=['GET'])
+@login_required
+def edit_photo(id):
+    user = User.get_by_id(id)
+
+    if user.id == current_user.id:
+        return render_template('users/update_photo.html', user=user)
+    else:
+        return render_template('users/404.html')
+

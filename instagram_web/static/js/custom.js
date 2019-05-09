@@ -1,6 +1,6 @@
 function myFunction() {
   let x = document.getElementById("psw");
-  console.log(`psw element value is ${x}`)
+  // console.log(`psw element value is ${x}`)
   if (x.type === "password") {
     x.type = "text";
   } else {
@@ -10,7 +10,7 @@ function myFunction() {
 
 
 const flashMsgParent = document.querySelector('.flash-messages');
-flashMsgParent.onclick = function (e) {           
+flashMsgParent.onclick = function (e) {
   let msg = e.target;
   flashMsgParent.removeChild(msg)
   // msg.parentNode.removeChild(msg)
@@ -25,32 +25,32 @@ let length = document.getElementById("length");
 
 show = false
 // When the user clicks on the password field, toggle the showing of the message box
-myInput.onclick = function() {
-  if (!show){
+myInput.onclick = function () {
+  if (!show) {
     document.getElementById("message").style.display = "block";
     show = !show
   }
   else {
     document.getElementById("message").style.display = "none";
     show = !show
-  } 
+  }
 }
 
 // When the user starts to type something inside the password field
-myInput.onkeyup = function() {
+myInput.onkeyup = function () {
   // Validate lowercase letters
   var lowerCaseLetters = /[a-z]/g;
-  if(myInput.value.match(lowerCaseLetters)) {  
+  if (myInput.value.match(lowerCaseLetters)) {
     letter.classList.remove("invalid");
     letter.classList.add("valid");
   } else {
     letter.classList.remove("valid");
     letter.classList.add("invalid");
   }
-  
+
   // Validate capital letters
   var upperCaseLetters = /[A-Z]/g;
-  if(myInput.value.match(upperCaseLetters)) {  
+  if (myInput.value.match(upperCaseLetters)) {
     capital.classList.remove("invalid");
     capital.classList.add("valid");
   } else {
@@ -60,16 +60,16 @@ myInput.onkeyup = function() {
 
   // Validate numbers
   var numbers = /[0-9]/g;
-  if(myInput.value.match(numbers)) {  
+  if (myInput.value.match(numbers)) {
     number.classList.remove("invalid");
     number.classList.add("valid");
   } else {
     number.classList.remove("valid");
     number.classList.add("invalid");
   }
-  
+
   // Validate length
-  if(myInput.value.length >= 8) {
+  if (myInput.value.length >= 8) {
     length.classList.remove("invalid");
     length.classList.add("valid");
   } else {
@@ -78,13 +78,13 @@ myInput.onkeyup = function() {
   }
 }
 
-// let signupAlert = document.getElementById("signup-alert");
-// if (signupAlert){
-//   document.getElementsByTagName("body").className = 'modal-open'
-//   // document.getElementById("signupModal").style.display = "block";
-//   document.getElementById("signupModal").style.display = "block";
-//   document.getElementById("signupModal").className = 'modal fade show'
-//   document.getElementById("signupModal").setAttribute("aria-hidden", "false");
-//   document.getElementsByTagName("script");insertAdjacentHTML("afterend", "<div class=modal-backdrop fade show></div>");
-// }
+function preview_image(event) {
+  var reader = new FileReader();
 
+  reader.onload = function () {
+    var output = document.getElementById('preview-img');
+    output.src = reader.result;
+  }
+
+  reader.readAsDataURL(event.target.files[0]);
+}
