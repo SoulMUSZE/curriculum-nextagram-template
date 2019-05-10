@@ -5,24 +5,31 @@
 
 <h1>Update Profile Photo</h1>
 
+
 <div class="container">
     <div class="text-center">
-        <!-- <img src="../../images/blank-headshot.png" alt="Smiley face" width="200" height="200" border-radius="20"> -->
-        <img id='preview-img' src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png" alt="Smiley face"
-    width="200" style="border-radius:25%">
+        {% if user.profile_photo_path %}
+        <img id='preview-img' src="{{user.profile_image_url}}" 
+            alt="Smiley face" width="200" style="border-radius:25%">
+        {% else %}
+        <img id='preview-img' src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png"
+            alt="Smiley face" width="200" style="border-radius:25%">
+        {% endif %}
     </div>
 
     <br>
 
-    <form action="/" method="POST" enctype="multipart/form-data">
+    <form action="{{ url_for('users.update_photo', id=user.id) }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="input-group">
             <div class="input-group-prepend">
                 <!-- <span type='submit' class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
                 <button type='submit' class="btn btn-primary" id="inputGroupFileAddon01">Upload</button>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile" onchange="preview_image(event)">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <input type="file" name="user_file" class="custom-file-input" id="customFile"
+                    onchange="preview_image(event)">
+                <label class="custom-file-label" for="user_file">Choose file</label>
             </div>
         </div>
     </form>
