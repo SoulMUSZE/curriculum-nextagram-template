@@ -9,6 +9,7 @@ docutils==0.14
 Flask==1.0.2
 Flask-Assets==0.12
 Flask-Cors==3.0.7
+Flask-Dropzone==1.5.3
 Flask-Login==0.4.1
 Flask-WTF==0.14.2
 itsdangerous==1.1.0
