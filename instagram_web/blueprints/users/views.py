@@ -107,8 +107,6 @@ def show(username):
 @login_required
 def index():
     return render_template('users/index.html')
-    # return 'You are not logged in'
-    # return "USERS"
 
 
 @users_blueprint.route('/<id>/edit', methods=['GET'])
