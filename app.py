@@ -3,6 +3,7 @@ import config
 from flask import Flask
 from models.base_model import db
 from flask_login import LoginManager
+from flask_dropzone import Dropzone
 
 
 web_dir = os.path.join(os.path.dirname(
@@ -10,6 +11,15 @@ web_dir = os.path.join(os.path.dirname(
 
 app = Flask('NEXTAGRAM', root_path=web_dir)
 app.secret_key = os.getenv('SECRET_KEY')
+
+#dropzone
+dropzone = Dropzone(app)
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = True  # enable parallel upload
+app.config['DROPZONE_PARALLEL_UPLOADS'] = 5  # handle 3 file per request
+# app.config['SECRET_KEY'] = app.secret_key
+app.config['DROPZONE_ENABLE_CSRF'] = True
+
+
 
 # flask-login
 login_manager = LoginManager()

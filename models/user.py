@@ -4,8 +4,6 @@ from flask_login import UserMixin
 from playhouse.hybrid import hybrid_property
 from config import AWS_S3_DOMAIN, S3_BUCKET
 
-
-
 class User(BaseModel, UserMixin):
     username = pw.CharField(unique=True, null=False)
     email = pw.CharField(unique=True, null=False)
@@ -15,5 +13,5 @@ class User(BaseModel, UserMixin):
     
     @hybrid_property
     def profile_image_url(self):
-        return AWS_S3_DOMAIN + S3_BUCKET + '/' + self.profile_photo_path
+        return f"{AWS_S3_DOMAIN}/{S3_BUCKET}/{self.profile_photo_path}"
 

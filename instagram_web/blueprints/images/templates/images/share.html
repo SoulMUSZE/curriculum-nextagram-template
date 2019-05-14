@@ -1,0 +1,48 @@
+{% extends "_layout.html" %}
+{% block title %} Upload Photos {% endblock %}
+
+{% block head %}
+{{ super() }}
+{{ dropzone.load_css() }}
+{{ dropzone.style('border: 2px dashed #0087F7; border-radius: 20px; margin: 2%; min-height: 50vh;') }}
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Start Sharing!</h1>
+
+
+<div class="container">
+    <div class="text-center">
+        {% if user.profile_photo_path %}
+        <img id='preview-img' src="{{user.profile_image_url}}" alt="Smiley face" width="200" style="border-radius:25%">
+        {% else %}
+        <img id='preview-img' src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png"
+            alt="Smiley face" width="200" style="border-radius:25%">
+        {% endif %}
+    </div>
+
+    <br>
+
+    <!-- <div class="text-center">
+        <form action="/">
+            Select images: <input type="file" name="img" multiple>
+            <input type="submit">
+        </form>
+    </div> -->
+
+    <br>
+
+
+    {{ dropzone.create(action=url_for('images.upload_photos', id=user.id)) }}
+    {{ dropzone.load_js() }}
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" id="upload-btn">Submit</button>
+    </div>
+    
+    {{ dropzone.config(custom_init='dz = this; document.getElementById("upload-btn").addEventListener("click", function handler(e) {dz.processQueue();});', 
+    custom_options='autoProcessQueue: false, addRemoveLinks: true, parallelUploads: 20,') }}
+</div>
+{% endblock %}

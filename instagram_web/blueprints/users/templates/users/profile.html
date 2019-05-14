@@ -10,14 +10,13 @@
         <h1 class="display-4">{{user.username}}'s Profile Page</h1>
 
         {% if user.profile_photo_path %}
-        <img id='preview-img' src="{{user.profile_image_url}}" 
-            alt="Smiley face" width="200" style="border-radius:25%">
+        <img id='preview-img' src="{{user.profile_image_url}}" alt="Smiley face" width="200" style="border-radius:25%">
         {% else %}
         <img id='preview-img' src="http://cisnationscapital.org/wp-content/uploads/2018/01/blank-headshot.png"
             alt="Smiley face" width="200" style="border-radius:25%">
         {% endif %}
 
-    
+
         <br><br>
 
         {% if user.description %}
@@ -27,6 +26,14 @@
         {% if current_user %}
         <p class="lead">{{current_user.username}} is currently logged in</p>
         {% endif %}
+
+        {% if user.images %}
+        {% for image in user.images %}
+        <img id='preview-img' src="{{image.url}}" alt="Smiley face" width="300" height='300' 
+            style="padding:5px ;border-radius:15%; object-fit:cover">
+        {% endfor %}
+        {% endif %}
+
     </div>
 </div>
 

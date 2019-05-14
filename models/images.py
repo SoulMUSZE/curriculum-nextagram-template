@@ -7,11 +7,11 @@ from config import AWS_S3_DOMAIN, S3_BUCKET
 
 class Image(BaseModel, UserMixin):
     # name = pw.CharField(unique=False, null=True)
-    user = pw.ForeignKeyField(User, backref='images', unique=True)
+    user = pw.ForeignKeyField(User, backref='images')
     file_path = pw.CharField(unique=False, null=True)
     @hybrid_property
     def url(self):
-        return AWS_S3_DOMAIN + S3_BUCKET + '/' + self.file_path
+         return f"{AWS_S3_DOMAIN}/{S3_BUCKET}/{self.file_path}"
     
  
 

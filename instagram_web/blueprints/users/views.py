@@ -210,6 +210,9 @@ def update_photo(id):
         if file and allowed_file(file.filename):
             file.filename = secure_filename(file.filename)
             
+            breakpoint()
+            print(file.filename)
+            
             if upload_file_to_s3(file, S3_BUCKET):
                 u = User.update(profile_photo_path = file.filename).where(User.id == user.id)
                 if u.execute():
